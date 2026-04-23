@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvbcch3jbfx2p"]
+
+[ext_resource type="Script" path="res://script/king.gd" id="1_ewg6a"]
+[ext_resource type="Texture2D" uid="uid://bd03ojeymgv1o" path="res://assets/personagens/king/rei_parado1.png" id="2_kx53q"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ipabr"]
+radius = 18.0
+height = 72.0
+
+[node name="King" type="Area2D"]
+script = ExtResource("1_ewg6a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kx53q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ipabr")

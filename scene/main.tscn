@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpe1cgqtyvu7o"]
+
+[ext_resource type="Script" path="res://script/main.gd" id="1_83eh8"]
+[ext_resource type="PackedScene" uid="uid://36ota6shfk56" path="res://scene/castle.tscn" id="1_w75ya"]
+[ext_resource type="PackedScene" uid="uid://bvbcch3jbfx2p" path="res://scene/king.tscn" id="2_gpm5j"]
+[ext_resource type="Texture2D" uid="uid://24s0hqtvx8sr" path="res://assets/castle/cenario_solo.png" id="2_vp3fu"]
+[ext_resource type="Texture2D" uid="uid://dl78p102b7j6h" path="res://assets/castle/entrada_castelo.png" id="3_o2qav"]
+[ext_resource type="PackedScene" uid="uid://cohmgd7p45qtd" path="res://scene/ui.tscn" id="3_xfijr"]
+[ext_resource type="Texture2D" uid="uid://crh5fhmk0q5a6" path="res://assets/castle/porta.png" id="7_ujymt"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(143, 12)
+script = ExtResource("1_83eh8")
+
+[node name="cenario_solo" type="Sprite2D" parent="."]
+position = Vector2(160, 230)
+texture = ExtResource("2_vp3fu")
+
+[node name="cenario_piso" type="Sprite2D" parent="."]
+position = Vector2(156, 318)
+scale = Vector2(1.23, 1)
+texture = ExtResource("3_o2qav")
+
+[node name="King" parent="." instance=ExtResource("2_gpm5j")]
+position = Vector2(145, 87)
+
+[node name="UI" parent="King" instance=ExtResource("3_xfijr")]
+
+[node name="Castle" parent="." instance=ExtResource("1_w75ya")]
+position = Vector2(2, 94)
+
+[node name="SpawnLeft" type="Marker2D" parent="."]
+position = Vector2(-136, 233)
+
+[node name="SpawnRight" type="Marker2D" parent="."]
+position = Vector2(455, 259)
+
+[node name="porta" type="Sprite2D" parent="."]
+position = Vector2(155, 247)
+scale = Vector2(0.65625, 0.567227)
+texture = ExtResource("7_ujymt")

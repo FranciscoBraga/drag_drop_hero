@@ -11,6 +11,7 @@ height = 72.0
 script = ExtResource("1_ewg6a")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = ExtResource("2_kx53q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

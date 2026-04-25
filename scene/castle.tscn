@@ -3,14 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://dilvegjklag1w" path="res://assets/castle/castelo.png" id="1_0k3j6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1s0y"]
-size = Vector2(295, 26)
+size = Vector2(646, 37)
 
 [node name="Castle" type="Area2D"]
 
 [node name="castle" type="Sprite2D" parent="."]
-position = Vector2(153, 94)
+position = Vector2(640, 531)
+scale = Vector2(2.34, 1.98784)
 texture = ExtResource("1_0k3j6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(154.5, 37)
+position = Vector2(639, 432)
 shape = SubResource("RectangleShape2D_b1s0y")

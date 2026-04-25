@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://script/hero.gd" id="1_kgf3l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5wha"]
+height = 68.0
 
 [node name="Hero" type="Area2D" groups=["hero"]]
 script = ExtResource("1_kgf3l")

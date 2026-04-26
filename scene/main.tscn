@@ -28,7 +28,7 @@ scale = Vector2(2.14167, 1.58333)
 texture = ExtResource("2_vp3fu")
 
 [node name="cenario_piso" type="Sprite2D" parent="."]
-position = Vector2(615, 770)
+position = Vector2(619, 748)
 scale = Vector2(2.39, 2.62162)
 texture = ExtResource("3_o2qav")
 
@@ -49,7 +49,7 @@ texture = ExtResource("7_ujymt")
 [node name="ceu" type="Sprite2D" parent="."]
 
 [node name="King" parent="." instance=ExtResource("2_gpm5j")]
-position = Vector2(645, 650)
+position = Vector2(618, 623)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

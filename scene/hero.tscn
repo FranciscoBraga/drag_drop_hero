@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://b04qwdk8k3sn3"]
+[gd_scene load_steps=4 format=3 uid="uid://b04qwdk8k3sn3"]
 
 [ext_resource type="Script" path="res://script/hero.gd" id="1_kgf3l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5wha"]
 height = 68.0
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_l768l"]
+
 [node name="Hero" type="Area2D" groups=["hero"]]
 script = ExtResource("1_kgf3l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_o5wha")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_l768l")

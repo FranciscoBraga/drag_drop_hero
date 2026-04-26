@@ -1,16 +1,104 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvbcch3jbfx2p"]
+[gd_scene load_steps=19 format=3 uid="uid://bvbcch3jbfx2p"]
 
 [ext_resource type="Script" path="res://script/king.gd" id="1_ewg6a"]
 [ext_resource type="Texture2D" uid="uid://bd03ojeymgv1o" path="res://assets/personagens/king/rei_parado1.png" id="2_kx53q"]
+[ext_resource type="Texture2D" uid="uid://dgr1nhidrc48f" path="res://assets/personagens/king/attack0.png" id="3_xpnvg"]
+[ext_resource type="Texture2D" uid="uid://ulqh5cxmwku3" path="res://assets/personagens/king/attack1.png" id="4_tshn0"]
+[ext_resource type="Texture2D" uid="uid://caiufgdhd31e2" path="res://assets/personagens/king/attack2.png" id="5_3f1er"]
+[ext_resource type="Texture2D" uid="uid://delei4utvbxr6" path="res://assets/personagens/king/attack3.png" id="6_xewmk"]
+[ext_resource type="Texture2D" uid="uid://bcd0sx5vfnhgo" path="res://assets/personagens/king/die0.png" id="7_ansnl"]
+[ext_resource type="Texture2D" uid="uid://dib7r0cqkgpd1" path="res://assets/personagens/king/idle0.png" id="7_e7abe"]
+[ext_resource type="Texture2D" uid="uid://buh72ojmihkqe" path="res://assets/personagens/king/die1.png" id="8_fufpw"]
+[ext_resource type="Texture2D" uid="uid://chskgbyflxma1" path="res://assets/personagens/king/idle1.png" id="8_tocyl"]
+[ext_resource type="Texture2D" uid="uid://boxpyy0bn8lcj" path="res://assets/personagens/king/die2.png" id="9_oi2br"]
+[ext_resource type="Texture2D" uid="uid://cic77larvsvki" path="res://assets/personagens/king/die3.png" id="10_vcrrg"]
+[ext_resource type="Texture2D" uid="uid://doxfgxrv0a3nf" path="res://assets/personagens/king/walker0.png" id="13_hcs2o"]
+[ext_resource type="Texture2D" uid="uid://c8t3jqcpn1ao0" path="res://assets/personagens/king/walker2.png" id="14_2pc1t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lol4"]
+atlas = ExtResource("7_e7abe")
+region = Rect2(0, 0, 47, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qm8c"]
+atlas = ExtResource("8_tocyl")
+region = Rect2(0, 0, 55, 91)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qlv73"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xpnvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tshn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3f1er")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xewmk")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ansnl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fufpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_oi2br")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vcrrg")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lol4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qm8c")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_hcs2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_2pc1t")
+}],
+"loop": true,
+"name": &"walker",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ipabr"]
 radius = 18.0
-height = 72.0
+height = 126.0
 
 [node name="King" type="Area2D"]
 script = ExtResource("1_ewg6a")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4, 6)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_qlv73")
+animation = &"idle"
+frame_progress = 0.996819
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-1, 12)
 scale = Vector2(2, 2)
 texture = ExtResource("2_kx53q")
 

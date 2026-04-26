@@ -18,7 +18,7 @@ script = ExtResource("1_83eh8")
 enemy_scene = ExtResource("8_3fua0")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(633, 351.25)
+position = Vector2(649, 190)
 scale = Vector2(1.30078, 1.79647)
 texture = ExtResource("3_qgcli")
 
@@ -32,24 +32,24 @@ position = Vector2(615, 770)
 scale = Vector2(2.39, 2.62162)
 texture = ExtResource("3_o2qav")
 
-[node name="King" parent="." instance=ExtResource("2_gpm5j")]
-position = Vector2(608, 328)
-
 [node name="Castle" parent="." instance=ExtResource("1_w75ya")]
 position = Vector2(-21, -23)
 
 [node name="SpawnLeft" type="Marker2D" parent="."]
-position = Vector2(274, 343)
+position = Vector2(23, 638)
 
 [node name="SpawnRight" type="Marker2D" parent="."]
-position = Vector2(865, 369)
+position = Vector2(1263, 648)
 
 [node name="porta" type="Sprite2D" parent="."]
-position = Vector2(608, 633)
+position = Vector2(627, 634)
 scale = Vector2(1.57031, 1.16281)
 texture = ExtResource("7_ujymt")
 
 [node name="ceu" type="Sprite2D" parent="."]
+
+[node name="King" parent="." instance=ExtResource("2_gpm5j")]
+position = Vector2(645, 650)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

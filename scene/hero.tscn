@@ -1,11 +1,61 @@
-[gd_scene load_steps=4 format=3 uid="uid://b04qwdk8k3sn3"]
+[gd_scene load_steps=9 format=3 uid="uid://b04qwdk8k3sn3"]
 
 [ext_resource type="Script" path="res://script/hero.gd" id="1_kgf3l"]
+[ext_resource type="Texture2D" uid="uid://bjyq72y4cayqq" path="res://assets/personagens/hero/warrior/warrior.png" id="2_10rr1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5wha"]
 height = 68.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv4jh"]
+atlas = ExtResource("2_10rr1")
+region = Rect2(0, 0, 56, 88)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6c2p1"]
+atlas = ExtResource("2_10rr1")
+region = Rect2(0, 0, 56, 88)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts3he"]
+atlas = ExtResource("2_10rr1")
+region = Rect2(0, 0, 56, 88)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykh7x"]
+atlas = ExtResource("2_10rr1")
+region = Rect2(0, 0, 56, 88)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_l768l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kv4jh")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c2p1")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts3he")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykh7x")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [node name="Hero" type="Area2D" groups=["hero"]]
 script = ExtResource("1_kgf3l")
@@ -15,3 +65,4 @@ shape = SubResource("CapsuleShape2D_o5wha")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l768l")
+animation = &"attack"

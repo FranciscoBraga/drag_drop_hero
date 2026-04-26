@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfpb4s3cc55rk"]
+
+[ext_resource type="Script" path="res://script/castle_gate.gd" id="1_y0bh1"]
+[ext_resource type="Texture2D" uid="uid://bgjv2ycisvefx" path="res://assets/castle/10.png" id="2_lfppg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6n8re"]
+radius = 28.0
+height = 106.0
+
+[node name="CastleGate" type="Node2D"]
+script = ExtResource("1_y0bh1")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("2_lfppg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CapsuleShape2D_6n8re")

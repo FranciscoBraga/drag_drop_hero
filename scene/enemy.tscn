@@ -82,4 +82,4 @@ shape = SubResource("CapsuleShape2D_budwc")
 position = Vector2(-5, 1)
 sprite_frames = SubResource("SpriteFrames_qy3af")
 animation = &"attack"
-frame_progress = 0.319627
+frame_progress = 0.323125

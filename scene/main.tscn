@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://24s0hqtvx8sr" path="res://assets/castle/cenario_solo.png" id="2_vp3fu"]
 [ext_resource type="Texture2D" uid="uid://dl78p102b7j6h" path="res://assets/castle/entrada_castelo.png" id="3_o2qav"]
 [ext_resource type="Texture2D" uid="uid://xkghmo0f23ja" path="res://assets/castle/background.jpg" id="3_qgcli"]
-[ext_resource type="Texture2D" uid="uid://crh5fhmk0q5a6" path="res://assets/castle/porta.png" id="7_ujymt"]
+[ext_resource type="PackedScene" uid="uid://cfpb4s3cc55rk" path="res://scene/castle_gate.tscn" id="6_bltu3"]
 [ext_resource type="PackedScene" uid="uid://cdqlloxur7dyh" path="res://scene/enemy.tscn" id="8_3fua0"]
 [ext_resource type="Script" path="res://script/hero_box.gd" id="9_nxomt"]
 [ext_resource type="Texture2D" uid="uid://bjyq72y4cayqq" path="res://assets/personagens/hero/warrior/warrior.png" id="9_wn3wl"]
@@ -18,7 +18,7 @@ script = ExtResource("1_83eh8")
 enemy_scene = ExtResource("8_3fua0")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(649, 190)
+position = Vector2(639, 222)
 scale = Vector2(1.30078, 1.79647)
 texture = ExtResource("3_qgcli")
 
@@ -32,8 +32,14 @@ position = Vector2(619, 748)
 scale = Vector2(2.39, 2.62162)
 texture = ExtResource("3_o2qav")
 
+[node name="King" parent="." instance=ExtResource("2_gpm5j")]
+position = Vector2(627, 388)
+
 [node name="Castle" parent="." instance=ExtResource("1_w75ya")]
 position = Vector2(-21, -23)
+
+[node name="CastleGate" parent="." instance=ExtResource("6_bltu3")]
+position = Vector2(624, 634)
 
 [node name="SpawnLeft" type="Marker2D" parent="."]
 position = Vector2(23, 638)
@@ -41,15 +47,7 @@ position = Vector2(23, 638)
 [node name="SpawnRight" type="Marker2D" parent="."]
 position = Vector2(1263, 648)
 
-[node name="porta" type="Sprite2D" parent="."]
-position = Vector2(627, 634)
-scale = Vector2(1.57031, 1.16281)
-texture = ExtResource("7_ujymt")
-
 [node name="ceu" type="Sprite2D" parent="."]
-
-[node name="King" parent="." instance=ExtResource("2_gpm5j")]
-position = Vector2(618, 623)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

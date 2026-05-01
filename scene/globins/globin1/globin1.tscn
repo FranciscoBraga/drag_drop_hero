@@ -68,8 +68,8 @@ animations = [{
 }]
 
 [node name="Globin1" instance=ExtResource("1_yanur")]
+hp = 50
+speed = 200.0
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_b8jch")
-animation = &"attack"
-frame_progress = 0.0

@@ -55,7 +55,12 @@ animations = [{
 }]
 
 [node name="Globlin3" instance=ExtResource("1_dki6c")]
+hp = 50
+speed = 150.0
+damage = 15
+attack_range = 15.0
+attack_cooldown = 2.0
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_cmvfq")
-frame_progress = 0.634949
+frame_progress = 0.613129

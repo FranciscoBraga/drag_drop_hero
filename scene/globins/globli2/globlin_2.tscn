@@ -55,6 +55,10 @@ animations = [{
 }]
 
 [node name="Globlin2" instance=ExtResource("1_q6j64")]
+speed = 50.0
+damage = 20
+attack_range = 40.0
+attack_cooldown = 3.0
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_qffx0")

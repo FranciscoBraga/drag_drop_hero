@@ -1,23 +1,44 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpe1cgqtyvu7o"]
+[gd_scene load_steps=16 format=3 uid="uid://bpe1cgqtyvu7o"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_83eh8"]
 [ext_resource type="PackedScene" uid="uid://36ota6shfk56" path="res://scene/castle.tscn" id="1_w75ya"]
 [ext_resource type="PackedScene" uid="uid://bvbcch3jbfx2p" path="res://scene/king.tscn" id="2_gpm5j"]
 [ext_resource type="Texture2D" uid="uid://24s0hqtvx8sr" path="res://assets/castle/cenario_solo.png" id="2_vp3fu"]
+[ext_resource type="Script" path="res://script/wave.gd" id="3_elgx2"]
 [ext_resource type="Texture2D" uid="uid://dl78p102b7j6h" path="res://assets/castle/entrada_castelo.png" id="3_o2qav"]
 [ext_resource type="Texture2D" uid="uid://xkghmo0f23ja" path="res://assets/castle/background.jpg" id="3_qgcli"]
+[ext_resource type="PackedScene" uid="uid://2rcjgmkwic22" path="res://scene/globins/globin1/globin1.tscn" id="4_qmxfy"]
+[ext_resource type="PackedScene" uid="uid://cb7tp0xehg00d" path="res://scene/globins/globli2/globlin_2.tscn" id="5_ya0gs"]
 [ext_resource type="PackedScene" uid="uid://cfpb4s3cc55rk" path="res://scene/castle_gate.tscn" id="6_bltu3"]
-[ext_resource type="PackedScene" uid="uid://cdqlloxur7dyh" path="res://scene/enemy.tscn" id="8_3fua0"]
+[ext_resource type="PackedScene" uid="uid://korf7neqgtud" path="res://scene/globins/globlin3/globlin_3.tscn" id="6_tll5a"]
 [ext_resource type="PackedScene" uid="uid://c38ydke8x6qw3" path="res://scene/hero_slot.tscn" id="11_xx615"]
+
+[sub_resource type="Resource" id="Resource_1yv2o"]
+script = ExtResource("3_elgx2")
+enemy_scene = ExtResource("4_qmxfy")
+enemy_count = 15
+spawn_interval = 2.0
+
+[sub_resource type="Resource" id="Resource_0vgq4"]
+script = ExtResource("3_elgx2")
+enemy_scene = ExtResource("5_ya0gs")
+enemy_count = 10
+spawn_interval = 4.0
+
+[sub_resource type="Resource" id="Resource_nhtj5"]
+script = ExtResource("3_elgx2")
+enemy_scene = ExtResource("6_tll5a")
+enemy_count = 5
+spawn_interval = 6.0
 
 [node name="Main" type="Node2D"]
 position = Vector2(3, 5)
 script = ExtResource("1_83eh8")
-enemy_scene = ExtResource("8_3fua0")
+level_waves = Array[ExtResource("3_elgx2")]([SubResource("Resource_1yv2o"), SubResource("Resource_0vgq4"), SubResource("Resource_nhtj5")])
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(639, 222)
-scale = Vector2(1.30078, 1.79647)
+position = Vector2(643, 286.125)
+scale = Vector2(1.30859, 2.09824)
 texture = ExtResource("3_qgcli")
 
 [node name="cenario_solo" type="Sprite2D" parent="."]

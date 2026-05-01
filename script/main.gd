@@ -1,34 +1,72 @@
 extends Node2D
 
-@export var enemy_scene: PackedScene # Arraste a cena Enemy.tscn para cá
 # Variáveis no topo do Main.gd
 var is_dragging: bool = false
 var dragged_hero_packed: PackedScene = null
 var current_drag_ghost: Node2D = null
+@export var level_waves: Array[Wave]
+var current_wave_index: int = 0
+var spawned_in_current_wave: int = 0
+var spawn_timer: Timer
 
 func _ready():
 	var gate = get_tree().get_first_node_in_group("gate")
 	if gate:
 		gate.gate_broken.connect(_on_gate_broken)
 	# Cria um timer simples via código para spawnar inimigos
-	var spawn_timer = Timer.new()
+	spawn_timer = Timer.new()
 	spawn_timer.wait_time = 2.0 # Spawna um inimigo a cada 2 segundos
 	spawn_timer.autostart = true
 	spawn_timer.timeout.connect(_spawn_enemy)
 	add_child(spawn_timer)
+	# Prepara o timer de spawn dinâmico
+	spawn_timer = Timer.new()
+	spawn_timer.timeout.connect(_spawn_enemy)
+	add_child(spawn_timer)
+	
+	# Inicia a primeira onda
+	start_next_wave()
+	
+func start_next_wave():
+	if current_wave_index < level_waves.size():
+		spawned_in_current_wave = 0
+		var current_wave = level_waves[current_wave_index]
+		
+		print("Iniciando Onda ", current_wave_index + 1)
+		
+		# Ajusta a velocidade do timer com base na configuração da onda
+		spawn_timer.wait_time = current_wave.spawn_interval
+		spawn_timer.start()
+	else:
+		print("A Fase acabou! Todos os inimigos foram enviados.")
+		spawn_timer.stop()
+		# Aqui no futuro você pode chamar a tela de "Vitória"
 
 func _spawn_enemy():
-	var enemy = enemy_scene.instantiate()
+	var current_wave = level_waves[current_wave_index]
 	
-	# Sorteia se o inimigo nasce no marcador da esquerda ou da direita
-	if randi() % 2 == 0:
-		enemy.global_position = $SpawnLeft.global_position
+	# IMPORTANTE: Puxa a cena de dentro da ONDA, e não do Main!
+	if current_wave.enemy_scene:
+		var enemy = current_wave.enemy_scene.instantiate()
+		
+		# Sorteia esquerda ou direita
+		if randi() % 2 == 0:
+			enemy.global_position = $SpawnLeft.global_position
+		else:
+			enemy.global_position = $SpawnRight.global_position
+			
+		add_child(enemy)
+		spawned_in_current_wave += 1
+		
+		# Verifica se já spawnou todos os inimigos desta onda
+		if spawned_in_current_wave >= current_wave.enemy_count:
+			spawn_timer.stop()
+			current_wave_index += 1
+			
+			await get_tree().create_timer(3.0).timeout
+			start_next_wave()
 	else:
-		enemy.global_position = $SpawnRight.global_position
-		# Adiciona na cena. Não precisamos mais definir enemy.direction
-		# O próprio Enemy.gd vai procurar a porta no seu _ready() e ir até ela.
-	add_child(enemy)
-	
+		print("ERRO: A onda ", current_wave_index, " está sem uma cena de inimigo definida no Inspector!")
 func start_dragging_hero(hero_packed):
 	print("3. O MAIN RECEBEU O HERÓI!") # Rastreio 3
 	if is_dragging: return 

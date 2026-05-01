@@ -14,11 +14,13 @@ var current_target = null # Dinâmico: Porta -> Rei
 var attack_timer: Timer
 # Adicione esta variável no topo junto com as outras
 var castle_level: int = 0
+var gate = null
 
 @onready var animation_player = $AnimatedSprite2D
 
 func _ready():
 	add_to_group("enemy")
+	print("castle_level:",castle_level)
 	
 	# Adiciona timer de ataque
 	attack_timer = Timer.new()
@@ -28,7 +30,7 @@ func _ready():
 	
 	# O alvo inicial é a porta
 	await get_tree().process_frame
-	var gate = get_tree().get_first_node_in_group("gate")
+	gate = get_tree().get_first_node_in_group("gate")
 	if gate:
 		set_target(gate)
 
@@ -40,37 +42,50 @@ func _process(delta):
 		State.MOVE:
 			if current_target and is_instance_valid(current_target):
 				
-				# REGRA 1: Se o alvo for a porta e ela JÁ ESTIVER QUEBRADA
+				# CENA 1: O alvo é a porta e ela JÁ ESTÁ QUEBRADA
 				if current_target.is_in_group("gate") and current_target.get("is_broken") == true:
-					# Ignora a distância de ataque e anda direto para dentro do portal!
-					var direction = (current_target.global_position - global_position).normalized()
-					position += direction * speed * delta
+					# Se ele está longe do centro do portal, continua andando para ele
+					if global_position.distance_to(current_target.global_position) > 10.0:
+						var direction = (current_target.global_position - global_position).normalized()
+						position += direction * speed * delta
+					else:
+						# Se ele chegou bem no meio do portal, teletransporta!
+						teleport_to_next_level()
 				
-				# REGRA 2: Se o alvo está vivo e chegou na distância de bater
+				# CENA 2: O alvo está vivo/inteiro e ele chegou na distância de ataque
 				elif global_position.distance_to(current_target.global_position) <= attack_range:
 					change_state(State.ATTACK)
 				
-				# REGRA 3: Ainda não chegou perto, continua andando
+				# CENA 3: Ainda não chegou perto, continua andando na direção do alvo
 				else:
 					var direction = (current_target.global_position - global_position).normalized()
 					position += direction * speed * delta
 			else:
-				# Se não tem alvo válido, procura o rei
+				# Se não tem alvo (ou alvo sumiu), procura o rei
 				find_king_target()
 				
 		State.ATTACK:
-			# SE O ALVO SUMIR ou SE A PORTA QUEBRAR ENQUANTO ELE BATE
-			if not current_target or not is_instance_valid(current_target) or (current_target.is_in_group("gate") and current_target.get("is_broken") == true):
+			# SE O ALVO SUMIR (ex: herói morreu)
+			if not current_target or not is_instance_valid(current_target):
 				attack_timer.stop()
-				change_state(State.MOVE) # Volta a andar para entrar no portal
-
+				find_king_target() # Procura o rei e volta a andar
+				
+			# SE A PORTA QUEBRAR ENQUANTO ELE ESTÁ BATENDO NELA
+			elif current_target.is_in_group("gate") and current_target.get("is_broken") == true:
+				attack_timer.stop()
+				# Como ele já estava batendo, sabemos que ele está encostado no portal!
+				# Então ativamos o teletransporte IMEDIATAMENTE
+				teleport_to_next_level()
+				
 func find_king_target():
 	var king = get_tree().get_first_node_in_group("king")
 	if king:
 		set_target(king)
+		print("king")
 	else:
 		# Rei já morreu, jogo acabou
 		change_state(State.IDLE)
+		print("IDLE")
 
 func set_target(target):
 	if target == null:
@@ -138,7 +153,7 @@ func teleport_to_next_level():
 	if possible_markers.size() > 0:
 		# Escolhe aleatoriamente entre esquerda (0) e direita (1)
 		var chosen_marker = possible_markers.pick_random()
-		
+		print("chosen_marker",chosen_marker)
 		# Teletransporta o inimigo
 		global_position = chosen_marker.global_position
 		

@@ -5,8 +5,9 @@ var current_health: int
 
 # Sinal para informar quando a porta for destruída
 signal gate_broken
+var is_broken: bool = false 
 
-@onready var sprite = $StaticBody2D/Sprite2D
+@onready var sprite = $Sprite2D
 
 func _ready():
 	current_health = max_health
@@ -22,15 +23,14 @@ func receive_damage(amount: int):
 		gate_break()
 
 func gate_break():
-	print("A PORTA DO CASTELO FOI DESTRUÍDA!")
+	if is_broken: return
+	is_broken = true
+	print("A PORTA DO CASTELO FOI DESTRUÍDA! Agora é um portal.")
+	
 	emit_signal("gate_broken")
-	
-	# Mais para frente podemos adicionar animação de quebra
-	# Por enquanto, apenas esconde o sprite
-	sprite.visible = false
-	
-	# Remove a porta do grupo, assim os inimigos saberão que ela não é mais alvo
-	remove_from_group("gate")
-	
-	# Desativa a colisão da porta para os inimigos passarem
-	$StaticBody2D/CollisionShape2D.disabled = true
+	# Esconde a imagem da porta
+	$Sprite2D.visible = false
+	# IMPORTANTE: NÃO removemos do grupo "gate"! 
+	# Queremos que os inimigos continuem andando até ela.
+	# Se você tiver um CollisionShape2D para bloquear movimento físico (CharacterBody), desative-o:
+	# $StaticBody2D/CollisionShape2D.disabled = true

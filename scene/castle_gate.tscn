@@ -4,16 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://bgjv2ycisvefx" path="res://assets/castle/10.png" id="2_lfppg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6n8re"]
-radius = 28.0
+radius = 19.0
 height = 106.0
 
-[node name="CastleGate" type="Node2D"]
+[node name="CastleGate" type="Area2D" groups=["gate"]]
 script = ExtResource("1_y0bh1")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_lfppg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["gate"]]
 shape = SubResource("CapsuleShape2D_6n8re")

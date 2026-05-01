@@ -86,7 +86,7 @@ animations = [{
 radius = 18.0
 height = 126.0
 
-[node name="King" type="Area2D"]
+[node name="King" type="Area2D" groups=["king"]]
 script = ExtResource("1_ewg6a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

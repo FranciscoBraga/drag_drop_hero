@@ -7,6 +7,9 @@ var dragged_hero_packed: PackedScene = null
 var current_drag_ghost: Node2D = null
 
 func _ready():
+	var gate = get_tree().get_first_node_in_group("gate")
+	if gate:
+		gate.gate_broken.connect(_on_gate_broken)
 	# Cria um timer simples via código para spawnar inimigos
 	var spawn_timer = Timer.new()
 	spawn_timer.wait_time = 2.0 # Spawna um inimigo a cada 2 segundos
@@ -57,3 +60,6 @@ func stop_dragging_hero():
 		current_drag_ghost.queue_free()
 	current_drag_ghost = null
 	dragged_hero_packed = null
+
+func _on_gate_broken():
+	print("O Main foi avisado que a porta quebrou!")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doudsqtec3000"
-path="res://.godot/imported/globlin2 (1).png-fbba2965e8c352618472b02b7309da9f.ctex"
+uid="uid://ctnlpoe4tou4u"
+path="res://.godot/imported/walk0.png-c18d89e7bfc6450944e6f7f5b0a42ea1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/personagens/eminis/globlin2 (1).png"
-dest_files=["res://.godot/imported/globlin2 (1).png-fbba2965e8c352618472b02b7309da9f.ctex"]
+source_file="res://assets/personagens/eminis/globlins/globin3/walk0.png"
+dest_files=["res://.godot/imported/walk0.png-c18d89e7bfc6450944e6f7f5b0a42ea1.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddu4q6vx42qka"
-path="res://.godot/imported/globlin2.png-bbf13c7d20f809e4242de17082b460de.ctex"
+uid="uid://w6but2lbethc"
+path="res://.godot/imported/victioria2.png-c9eee9c58e54a0bc0482975a933f151f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/personagens/eminis/globlin2.png"
-dest_files=["res://.godot/imported/globlin2.png-bbf13c7d20f809e4242de17082b460de.ctex"]
+source_file="res://assets/personagens/eminis/globlins/globin3/victioria2.png"
+dest_files=["res://.godot/imported/victioria2.png-c9eee9c58e54a0bc0482975a933f151f.ctex"]
 
 [params]
 

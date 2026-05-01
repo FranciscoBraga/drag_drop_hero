@@ -1,68 +1,35 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdqlloxur7dyh"]
+[gd_scene load_steps=5 format=3 uid="uid://cdqlloxur7dyh"]
 
 [ext_resource type="Script" path="res://script/enemy.gd" id="1_iqkys"]
-[ext_resource type="Texture2D" uid="uid://cah8ojugnh5ye" path="res://assets/personagens/eminis/globlin1.png" id="2_vwnc6"]
-[ext_resource type="Texture2D" uid="uid://mdvmn7h0fg4k" path="res://assets/personagens/eminis/globlin2 (2).png" id="3_gacpk"]
-[ext_resource type="Texture2D" uid="uid://ddu4q6vx42qka" path="res://assets/personagens/eminis/globlin2.png" id="4_kyodj"]
-[ext_resource type="Texture2D" uid="uid://doudsqtec3000" path="res://assets/personagens/eminis/globlin2 (1).png" id="5_0puwg"]
+[ext_resource type="Texture2D" uid="uid://cah8ojugnh5ye" path="res://assets/personagens/eminis/globlins/globlin1/globlin1.png" id="2_vwnc6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_budwc"]
 radius = 12.0
 height = 90.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wmm6x"]
-atlas = ExtResource("3_gacpk")
-region = Rect2(0, 0, 55, 86)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f1v83"]
-atlas = ExtResource("4_kyodj")
-region = Rect2(0, 0, 62, 88)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rlxqq"]
-atlas = ExtResource("2_vwnc6")
-region = Rect2(0, 0, 96, 113)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qo6bk"]
-atlas = ExtResource("5_0puwg")
-region = Rect2(0, 0, 52, 86)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wkxb7"]
-atlas = ExtResource("4_kyodj")
-region = Rect2(0, 0, 62, 88)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_qy3af"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wmm6x")
-}],
+"frames": [],
 "loop": true,
 "name": &"attack",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f1v83")
-}],
+"frames": [],
 "loop": true,
 "name": &"death",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rlxqq")
-}],
+"frames": [],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qo6bk")
+"frames": [],
+"loop": true,
+"name": &"victoria",
+"speed": 5.0
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wkxb7")
-}],
+"frames": [],
 "loop": true,
 "name": &"walk",
 "speed": 5.0
@@ -81,7 +48,7 @@ shape = SubResource("CapsuleShape2D_budwc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, 1)
 sprite_frames = SubResource("SpriteFrames_qy3af")
-animation = &"attack"
-frame_progress = 0.323125
+animation = &"walk"
+frame_progress = 0.326299
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,7 +1,7 @@
 extends Area2D
 
 # Estados possíveis para animação
-enum State {IDLE, MOVE, ATTACK, DEATH}
+enum State {IDLE, MOVE, ATTACK, DEATH,TELEPORTING}
 var current_state = State.MOVE # Inimigo nasce se movendo
 
 @export var hp: int = 30
@@ -37,6 +37,8 @@ func _ready():
 func _process(delta):
 	# Não faz nada se estiver morto
 	if current_state == State.DEATH: return
+	if current_state == State.DEATH or current_state == State.TELEPORTING: 
+		return
 	
 	match current_state:
 		State.MOVE:
@@ -110,6 +112,10 @@ func change_state(new_state):
 			if attack_timer.is_stopped():
 				attack_timer.start()
 		State.DEATH: animation_player.play("death")
+		State.TELEPORTING:
+			# Para tudo que estiver fazendo
+			animation_player.stop()
+			attack_timer.stop()
 		
 # --- ATUALIZE SUA FUNÇÃO _on_area_entered ---
 func _on_area_entered(area: Area2D):
@@ -128,41 +134,48 @@ func _on_area_entered(area: Area2D):
 
 # --- NOVA FUNÇÃO DE TELETRANSPORTE ---
 func teleport_to_next_level():
+	# Previne que a função rode mais de uma vez se ele esbarrar duas vezes na porta
+	if current_state == State.TELEPORTING: return 
+	
+	# Muda o estado e fica invisível
+	change_state(State.TELEPORTING)
+	visible = false 
+	
+	print("Inimigo entrou no portal! Aguardando 5 segundos...")
+	
+	# O CÓDIGO PAUSA AQUI POR 5 SEGUNDOS APENAS PARA ESTE INIMIGO
+	await get_tree().create_timer(5.0).timeout
+	
+	# Checagem de segurança: Se a fase reiniciou ou ele foi destruído enquanto esperava
+	if not is_inside_tree() or current_state == State.DEATH: return
+	
+	# --- Lógica de achar o marcador ---
 	castle_level += 1
-	print("Inimigo entrou no portal! Subindo para o andar: ", castle_level)
-	
-	# Busca o nó 'Castle' na cena principal
 	var castle_node = get_tree().current_scene.get_node_or_null("Castle")
-	if not castle_node:
-		print("Erro: Nó 'Castle' não encontrado para buscar os marcadores.")
-		return
+	if castle_node:
+		var marker_right_name = "level_right_" + str(castle_level)
+		var marker_left_name = "level_left_" + str(castle_level)
 		
-	# Constrói o nome dos marcadores dinamicamente baseado no level atual
-	var marker_right_name = "level_right_" + str(castle_level)
-	var marker_left_name = "level_left_" + str(castle_level)
-	
-	# Busca os nós dentro do castelo
-	var marker_right = castle_node.get_node_or_null(marker_right_name)
-	var marker_left = castle_node.get_node_or_null(marker_left_name)
-	
-	var possible_markers = []
-	if marker_right: possible_markers.append(marker_right)
-	if marker_left: possible_markers.append(marker_left)
-	
-	# Se encontrou pelo menos um marcador para esse andar
-	if possible_markers.size() > 0:
-		# Escolhe aleatoriamente entre esquerda (0) e direita (1)
-		var chosen_marker = possible_markers.pick_random()
-		print("chosen_marker",chosen_marker)
-		# Teletransporta o inimigo
-		global_position = chosen_marker.global_position
+		var marker_right = castle_node.get_node_or_null(marker_right_name)
+		var marker_left = castle_node.get_node_or_null(marker_left_name)
 		
-		# AGORA SIM, após subir de andar, ele define o Rei como alvo
-		find_king_target()
-	else:
-		print("Erro: Nenhum marcador encontrado para o level ", castle_level)
-		# Plano B: Vai pro rei mesmo sem marcador
-		find_king_target()				
+		var possible_markers = []
+		if marker_right: possible_markers.append(marker_right)
+		if marker_left: possible_markers.append(marker_left)
+		
+		if possible_markers.size() > 0:
+			var chosen_marker = possible_markers.pick_random()
+			global_position = chosen_marker.global_position
+		else:
+			print("Erro: Nenhum marcador encontrado para o level ", castle_level)
+			
+	# --- A Mágica de Volta ---
+	visible = true # Fica visível novamente
+	print("BOOM! Inimigo reapareceu no andar ", castle_level)
+	
+	# Manda ele procurar o Rei, o que automaticamente muda o estado dele de volta para MOVE
+	find_king_target()
+			
 				
 func _on_attack_timer_timeout():
 	if current_state == State.ATTACK and current_target and is_instance_valid(current_target):

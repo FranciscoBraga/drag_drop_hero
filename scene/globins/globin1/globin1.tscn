@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://2rcjgmkwic22"]
+
+[ext_resource type="PackedScene" uid="uid://cdqlloxur7dyh" path="res://scene/enemy.tscn" id="1_yanur"]
+[ext_resource type="Texture2D" uid="uid://cah8ojugnh5ye" path="res://assets/personagens/eminis/globlins/globlin1/globlin1.png" id="2_5625y"]
+[ext_resource type="Texture2D" uid="uid://doudsqtec3000" path="res://assets/personagens/eminis/globlins/globlin1/globlin2 (1).png" id="3_vlu2s"]
+[ext_resource type="Texture2D" uid="uid://mdvmn7h0fg4k" path="res://assets/personagens/eminis/globlins/globlin1/globlin2 (2).png" id="4_p0kqp"]
+[ext_resource type="Texture2D" uid="uid://ddu4q6vx42qka" path="res://assets/personagens/eminis/globlins/globlin1/globlin2.png" id="5_tmnjx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b8jch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5625y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vlu2s")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vlu2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_p0kqp")
+}],
+"loop": true,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tmnjx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5625y")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_p0kqp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vlu2s")
+}],
+"loop": true,
+"name": &"victoria",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tmnjx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5625y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_p0kqp")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[node name="Globin1" instance=ExtResource("1_yanur")]
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_b8jch")
+animation = &"attack"
+frame_progress = 0.0

@@ -1,10 +1,54 @@
 [gd_scene load_steps=2 format=3 uid="uid://cohmgd7p45qtd"]
 
-[ext_resource type="Script" path="res://script/hero_box.gd" id="1_jwn24"]
+[sub_resource type="GDScript" id="GDScript_0x3ce"]
+script/source = "extends Control # Pode ser TextureRect, Panel, ou ColorRect
+
+@export var hero_scene: PackedScene # Arraste a cena Hero.tscn para cá no Inspector
+var is_dragging: bool = false
+var dragged_hero: Node2D = null
+
+func _gui_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			# Jogador clicou na caixa: Instancia o herói e começa o drag
+			is_dragging = true
+			dragged_hero = hero_scene.instantiate()
+			
+			# Adiciona o herói à cena principal (fora da UI)
+			get_tree().current_scene.add_child(dragged_hero)
+			
+			# Deixa o herói meio transparente enquanto está sendo arrastado
+			dragged_hero.modulate.a = 0.5 
+			dragged_hero.global_position = get_global_mouse_position()
+			
+		elif not event.pressed and is_dragging:
+			# Jogador soltou o botão do mouse: Posiciona o herói
+			is_dragging = false
+			if dragged_hero:
+				dragged_hero.modulate.a = 1.0 # Remove a transparência
+				dragged_hero = null
+
+func _process(_delta):
+	# Se estiver arrastando, o herói fantasma segue o mouse
+	if is_dragging and dragged_hero:
+		dragged_hero.global_position = get_global_mouse_position()
+"
 
 [node name="UI" type="CanvasLayer"]
 
 [node name="HeroBox" type="TextureRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_jwn24")
+script = SubResource("GDScript_0x3ce")
+
+[node name="HeroScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="HeroScrollContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="DragManager" type="Node" parent="."]

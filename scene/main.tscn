@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpe1cgqtyvu7o"]
+[gd_scene load_steps=10 format=3 uid="uid://bpe1cgqtyvu7o"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_83eh8"]
 [ext_resource type="PackedScene" uid="uid://36ota6shfk56" path="res://scene/castle.tscn" id="1_w75ya"]
@@ -8,9 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://xkghmo0f23ja" path="res://assets/castle/background.jpg" id="3_qgcli"]
 [ext_resource type="PackedScene" uid="uid://cfpb4s3cc55rk" path="res://scene/castle_gate.tscn" id="6_bltu3"]
 [ext_resource type="PackedScene" uid="uid://cdqlloxur7dyh" path="res://scene/enemy.tscn" id="8_3fua0"]
-[ext_resource type="Script" path="res://script/hero_box.gd" id="9_nxomt"]
-[ext_resource type="Texture2D" uid="uid://bjyq72y4cayqq" path="res://assets/personagens/hero/warrior/warrior.png" id="9_wn3wl"]
-[ext_resource type="PackedScene" uid="uid://ea0lk0wrjaet" path="res://scene/hero_cavaleiro.tscn" id="11_jefre"]
+[ext_resource type="PackedScene" uid="uid://c38ydke8x6qw3" path="res://scene/hero_slot.tscn" id="11_xx615"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(3, 5)
@@ -52,8 +50,13 @@ position = Vector2(1263, 648)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HeroBox" type="TextureRect" parent="UI"]
-offset_right = 158.0
-offset_bottom = 257.0
-texture = ExtResource("9_wn3wl")
-script = ExtResource("9_nxomt")
-hero_scene = ExtResource("11_jefre")
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 1023.0
+offset_bottom = 426.0
+mouse_filter = 2
+
+[node name="HeroSlot" parent="UI/HeroBox" instance=ExtResource("11_xx615")]
+layout_mode = 0
+offset_top = 3.0
+offset_bottom = 71.0

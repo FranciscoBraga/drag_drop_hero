@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c38ydke8x6qw3"]
+
+[ext_resource type="Texture2D" uid="uid://bjyq72y4cayqq" path="res://assets/personagens/hero/warrior/warrior.png" id="1_u4cs0"]
+[ext_resource type="PackedScene" uid="uid://b04qwdk8k3sn3" path="res://scene/hero.tscn" id="2_62llp"]
+[ext_resource type="Script" path="res://script/hero_slot.gd" id="2_o8n80"]
+
+[node name="HeroSlot" type="Button"]
+offset_right = 51.0
+offset_bottom = 62.0
+script = ExtResource("2_o8n80")
+hero_scene = ExtResource("2_62llp")
+hero_icon = ExtResource("1_u4cs0")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 53.0
+offset_bottom = 61.0
+mouse_filter = 2
+texture = ExtResource("1_u4cs0")
+expand_mode = 1

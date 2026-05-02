@@ -17,7 +17,6 @@ func _ready():
 
 func receive_damage(amount: int):
 	current_health -= amount
-	print("Porta do Castelo recebeu dano! Vida restante: ", current_health)
 	
 	if current_health <= 0:
 		gate_break()
@@ -25,7 +24,6 @@ func receive_damage(amount: int):
 func gate_break():
 	if is_broken: return
 	is_broken = true
-	print("A PORTA DO CASTELO FOI DESTRUÍDA! Agora é um portal.")
 	
 	emit_signal("gate_broken")
 	# Esconde a imagem da porta

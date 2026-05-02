@@ -63,8 +63,13 @@ func take_damage(amount: int):
 		die()
 
 func die():
-	print("O Rei caiu!")
+	print("O Rei caiu! Vitória dos Monstros!")
 	change_state(State.DEATH)
-	# Espera a animação de morte acabar antes de reiniciar
-	await animation_player.animation_finished
+	
+	# O Godot avisa magicamente TODOS os nós do grupo "enemy" para rodarem a função "celebrate"
+	get_tree().call_group("enemy", "celebrate")
+	
+	# Espera 3 segundos (para dar tempo de ver os monstros comemorando) antes de reiniciar a fase
+	await get_tree().create_timer(3.0).timeout
 	get_tree().reload_current_scene()
+	

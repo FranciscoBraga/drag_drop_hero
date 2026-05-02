@@ -56,7 +56,7 @@ animations = [{
 "texture": ExtResource("10_vcrrg")
 }],
 "loop": true,
-"name": &"die",
+"name": &"death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -78,7 +78,7 @@ animations = [{
 "texture": ExtResource("14_2pc1t")
 }],
 "loop": true,
-"name": &"walker",
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -93,8 +93,7 @@ script = ExtResource("1_ewg6a")
 position = Vector2(-4, 6)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_qlv73")
-animation = &"idle"
-frame_progress = 0.996819
+animation = &"walk"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

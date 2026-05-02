@@ -1,7 +1,7 @@
 extends Area2D
 
 # Estados possíveis para animação
-enum State {IDLE, MOVE, ATTACK, DEATH,TELEPORTING}
+enum State {IDLE, MOVE, ATTACK, DEATH,TELEPORTING,VICTORY}
 var current_state = State.MOVE # Inimigo nasce se movendo
 
 @export var hp: int = 30
@@ -116,6 +116,10 @@ func change_state(new_state):
 			# Para tudo que estiver fazendo
 			animation_player.stop()
 			attack_timer.stop()
+		State.VICTORY: # <--- NOVO ESTADO AQUI
+			animation_player.play("victoria")
+			attack_timer.stop()
+			set_process(false) # Faz o inimigo parar de andar e pensar
 		
 # --- ATUALIZE SUA FUNÇÃO _on_area_entered ---
 func _on_area_entered(area: Area2D):
@@ -141,7 +145,6 @@ func teleport_to_next_level():
 	change_state(State.TELEPORTING)
 	visible = false 
 	
-	print("Inimigo entrou no portal! Aguardando 5 segundos...")
 	
 	# O CÓDIGO PAUSA AQUI POR 5 SEGUNDOS APENAS PARA ESTE INIMIGO
 	await get_tree().create_timer(5.0).timeout
@@ -171,7 +174,6 @@ func teleport_to_next_level():
 			
 	# --- A Mágica de Volta ---
 	visible = true # Fica visível novamente
-	print("BOOM! Inimigo reapareceu no andar ", castle_level)
 	
 	# Manda ele procurar o Rei, o que automaticamente muda o estado dele de volta para MOVE
 	find_king_target()
@@ -181,7 +183,6 @@ func _on_attack_timer_timeout():
 	if current_state == State.ATTACK and current_target and is_instance_valid(current_target):
 		if current_target.has_method("take_damage"):
 			current_target.take_damage(damage)
-			print("Inimigo atacou! Causa ", damage, " de dano.")
 		else:
 			# Se o alvo não tem método take_damage, talvez seja a porta
 			# Porta deve ter vida e gerenciar isso
@@ -194,7 +195,6 @@ func take_damage(amount: int):
 		die()
 
 func die():
-	print("Inimigo morreu!")
 	change_state(State.DEATH)
 	
 	# Para de atacar e se mover
@@ -204,3 +204,7 @@ func die():
 	# Espera a animação de morte acabar
 	await animation_player.animation_finished
 	queue_free() # Remove da cena
+# 3. Crie esta função no final do script
+func celebrate():
+	if current_state != State.DEATH: # Só comemora se estiver vivo!
+		change_state(State.VICTORY)

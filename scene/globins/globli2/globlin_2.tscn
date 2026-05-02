@@ -62,5 +62,4 @@ attack_cooldown = 3.0
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_qffx0")
-animation = &"attack"
-frame_progress = 0.0
+animation = &"death"

@@ -43,6 +43,10 @@ func start_next_wave():
 		# Aqui no futuro você pode chamar a tela de "Vitória"
 
 func _spawn_enemy():
+	# TRAVA DE SEGURANÇA: Se o índice for maior ou igual ao total de ondas, para o spawn e sai da função!
+	if current_wave_index >= level_waves.size():
+		spawn_timer.stop()
+		return
 	var current_wave = level_waves[current_wave_index]
 	
 	# IMPORTANTE: Puxa a cena de dentro da ONDA, e não do Main!

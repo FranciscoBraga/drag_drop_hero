@@ -1,6 +1,6 @@
 extends Area2D
 
-enum State {IDLE, MOVE, ATTACK, DEATH}
+enum State {IDLE, MOVE, ATTACK, DEATH, VICTORY}
 var current_state = State.IDLE
 
 @export var max_health: int = 100
@@ -114,6 +114,9 @@ func change_state(new_state):
 			animation_player.play("attack")
 			current_attack_time = attack_cooldown # O primeiro golpe é instantâneo!
 		State.DEATH: animation_player.play("death")
+		State.VICTORY:
+			animation_player.play("victoria") # Coloque o nome exato da sua animação
+			set_process(false)
 
 func take_damage(amount: int):
 	if current_state == State.DEATH: return
@@ -128,3 +131,7 @@ func die():
 	get_tree().call_group("enemy", "celebrate")
 	await get_tree().create_timer(3.0).timeout
 	get_tree().reload_current_scene()
+
+func celebrate():
+	if current_state != State.DEATH:
+		change_state(State.VICTORY)

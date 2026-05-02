@@ -68,7 +68,7 @@ animations = [{
 }]
 
 [node name="Globin1" instance=ExtResource("1_yanur")]
-hp = 50
+hp = 5
 speed = 200.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]

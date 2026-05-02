@@ -32,7 +32,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_budwc"]
-radius = 23.0
+radius = 32.0
 height = 90.0
 
 [node name="Enemy" type="Area2D" groups=["gate"]]

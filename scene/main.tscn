@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpe1cgqtyvu7o"]
+[gd_scene load_steps=20 format=3 uid="uid://bpe1cgqtyvu7o"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_83eh8"]
 [ext_resource type="PackedScene" uid="uid://36ota6shfk56" path="res://scene/castle.tscn" id="1_w75ya"]
@@ -31,6 +31,14 @@ enemy_scene = ExtResource("6_tll5a")
 enemy_count = 5
 spawn_interval = 6.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gsp5"]
+size = Vector2(285.774, 3.2835)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v4s2s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwnfw"]
+size = Vector2(653.138, 20)
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_0tipg"]
 
 [node name="Main" type="Node2D"]
@@ -40,9 +48,27 @@ level_waves = Array[ExtResource("3_elgx2")]([SubResource("Resource_1yv2o"), SubR
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -3
-position = Vector2(597, 217)
+position = Vector2(610, 250)
 scale = Vector2(1.53906, 2.38588)
 texture = ExtResource("3_qgcli")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["chao"]]
+z_index = 10
+position = Vector2(616, 487)
+scale = Vector2(2.39, 2.62162)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(21.5481, -6.98209)
+shape = SubResource("RectangleShape2D_1gsp5")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." groups=["chao"]]
+position = Vector2(617, 734)
+scale = Vector2(2.39, 2.62162)
+physics_material_override = SubResource("PhysicsMaterial_v4s2s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(5.02089, 2.28864)
+shape = SubResource("RectangleShape2D_fwnfw")
 
 [node name="cenario_solo" type="Sprite2D" parent="."]
 z_index = -2
@@ -50,8 +76,8 @@ position = Vector2(620.5, 611.5)
 scale = Vector2(2.545, 1.58333)
 texture = ExtResource("2_vp3fu")
 
-[node name="cenario_piso" type="Sprite2D" parent="."]
-position = Vector2(619, 748)
+[node name="cenario_piso" type="Sprite2D" parent="." groups=["chao"]]
+position = Vector2(657, 786)
 scale = Vector2(2.39, 2.62162)
 texture = ExtResource("3_o2qav")
 
@@ -59,16 +85,16 @@ texture = ExtResource("3_o2qav")
 position = Vector2(627, 388)
 
 [node name="Castle" parent="." instance=ExtResource("1_w75ya")]
-position = Vector2(-21, -23)
+position = Vector2(27, -12)
 
 [node name="CastleGate" parent="." instance=ExtResource("6_bltu3")]
-position = Vector2(624, 634)
+position = Vector2(660, 646)
 
 [node name="SpawnLeft" type="Marker2D" parent="."]
-position = Vector2(23, 638)
+position = Vector2(21, 658)
 
 [node name="SpawnRight" type="Marker2D" parent="."]
-position = Vector2(1263, 648)
+position = Vector2(1268, 663)
 
 [node name="ceu" type="Sprite2D" parent="."]
 

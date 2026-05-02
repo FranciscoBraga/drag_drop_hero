@@ -3,6 +3,7 @@ extends Area2D
 # Estados possíveis para animação
 enum State {IDLE, MOVE, ATTACK, DEATH,TELEPORTING,VICTORY}
 var current_state = State.MOVE # Inimigo nasce se movendo
+var is_dead: bool = false
 
 @export var hp: int = 30
 @export var speed: float = 100.0
@@ -69,6 +70,9 @@ func _process(delta):
 				find_king_target()
 				
 		State.ATTACK:
+			# 1. Se o alvo sumiu ou MORREU!
+			if not current_target or not is_instance_valid(current_target) or current_target.get("is_dead") == true:
+				find_next_target() # Chama a nova função!
 			# SE O ALVO SUMIR (ex: herói morreu)
 			if not current_target or not is_instance_valid(current_target):
 				attack_timer.stop()
@@ -220,3 +224,11 @@ func die():
 func celebrate():
 	if current_state != State.DEATH: # Só comemora se estiver vivo!
 		change_state(State.VICTORY)
+		
+func find_next_target():
+	# Pergunta: O portão ainda existe e está inteiro?
+	var gate_node = get_tree().get_first_node_in_group("gate")
+	if gate_node and gate_node.get("is_broken") == false:
+		set_target(gate_node) # Vai bater no portão!
+	else:
+		find_king_target() # Portão já quebrou, vai pro Rei!

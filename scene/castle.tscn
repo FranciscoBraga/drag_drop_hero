@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://36ota6shfk56"]
+[gd_scene load_steps=2 format=3 uid="uid://36ota6shfk56"]
 
 [ext_resource type="Texture2D" uid="uid://dilvegjklag1w" path="res://assets/castle/castelo.png" id="1_0k3j6"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1s0y"]
-size = Vector2(646, 37)
 
 [node name="Castle" type="Area2D"]
 
@@ -11,10 +8,6 @@ size = Vector2(646, 37)
 position = Vector2(643, 569)
 scale = Vector2(2.34, 1.59392)
 texture = ExtResource("1_0k3j6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(634, 515)
-shape = SubResource("RectangleShape2D_b1s0y")
 
 [node name="level_right_1" type="Marker2D" parent="."]
 position = Vector2(895, 406)

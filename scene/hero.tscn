@@ -10,9 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://diqexb5x217oj" path="res://assets/personagens/hero/warrior/level_1/walk1.png" id="8_b6jmb"]
 [ext_resource type="Texture2D" uid="uid://b547gpaq5noub" path="res://assets/personagens/hero/warrior/level_1/walk2.png" id="9_wcxhv"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5wha"]
-height = 68.0
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_l768l"]
 animations = [{
 "frames": [{
@@ -70,12 +67,19 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5wha"]
+radius = 31.0
+height = 68.0
+
 [node name="Hero" type="Area2D" groups=["hero"]]
 script = ExtResource("1_kgf3l")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_o5wha")
+attack_cooldown = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -51)
 sprite_frames = SubResource("SpriteFrames_l768l")
-animation = &"attack"
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -38)
+shape = SubResource("CapsuleShape2D_o5wha")

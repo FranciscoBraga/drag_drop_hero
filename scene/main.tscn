@@ -37,13 +37,13 @@ script = ExtResource("1_83eh8")
 level_waves = Array[ExtResource("3_elgx2")]([SubResource("Resource_1yv2o"), SubResource("Resource_0vgq4"), SubResource("Resource_nhtj5")])
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(643, 286.125)
-scale = Vector2(1.30859, 2.09824)
+position = Vector2(597, 217)
+scale = Vector2(1.53906, 2.38588)
 texture = ExtResource("3_qgcli")
 
 [node name="cenario_solo" type="Sprite2D" parent="."]
-position = Vector2(637.5, 611.5)
-scale = Vector2(2.14167, 1.58333)
+position = Vector2(620.5, 611.5)
+scale = Vector2(2.545, 1.58333)
 texture = ExtResource("2_vp3fu")
 
 [node name="cenario_piso" type="Sprite2D" parent="."]

@@ -44,26 +44,28 @@ func _process(delta):
 		State.MOVE:
 			if current_target and is_instance_valid(current_target):
 				
-				# CENA 1: O alvo é a porta e ela JÁ ESTÁ QUEBRADA
+				# 1. Calcula a direção SEMPRE (para o flip e para andar)
+				var direction = (current_target.global_position - global_position).normalized()
+				
+				# 2. Vira o sprite para o lado certo IMEDIATAMENTE
+				if direction.x < 0:
+					animation_player.flip_h = true # Esquerda
+				elif direction.x > 0:
+					animation_player.flip_h = false # Direita
+
+				# 3. Lógica de movimentação
 				if current_target.is_in_group("gate") and current_target.get("is_broken") == true:
-					# Se ele está longe do centro do portal, continua andando para ele
 					if global_position.distance_to(current_target.global_position) > 10.0:
-						var direction = (current_target.global_position - global_position).normalized()
 						position += direction * speed * delta
 					else:
-						# Se ele chegou bem no meio do portal, teletransporta!
 						teleport_to_next_level()
-				
-				# CENA 2: O alvo está vivo/inteiro e ele chegou na distância de ataque
+						
 				elif global_position.distance_to(current_target.global_position) <= attack_range:
 					change_state(State.ATTACK)
-				
-				# CENA 3: Ainda não chegou perto, continua andando na direção do alvo
+					
 				else:
-					var direction = (current_target.global_position - global_position).normalized()
 					position += direction * speed * delta
 			else:
-				# Se não tem alvo (ou alvo sumiu), procura o rei
 				find_king_target()
 				
 		State.ATTACK:
@@ -103,6 +105,7 @@ func change_state(new_state):
 	if current_state == new_state and animation_player.is_playing(): return
 	
 	current_state = new_state
+	print("current_state:",current_state)
 	match new_state:
 		State.IDLE: animation_player.play("idle")
 		State.MOVE: animation_player.play("walk")
@@ -127,6 +130,7 @@ func _on_area_entered(area: Area2D):
 	# Lógica de dano original para rei e herói...
 	if area.is_in_group("king") or area.is_in_group("hero"):
 		if area.has_method("take_damage"):
+			print("inimigo sobre ataque")
 			area.take_damage(damage)
 			# queue_free() # ou lógica de combate
 			# NOVA LÓGICA: Se tocou na porta
@@ -134,10 +138,12 @@ func _on_area_entered(area: Area2D):
 		print("gate")
 			# Verifica se a porta tem a variável is_broken e se ela é verdadeira
 		if area.get("is_broken") == true:
+			print("is_broken")
 			teleport_to_next_level()
 
 # --- NOVA FUNÇÃO DE TELETRANSPORTE ---
 func teleport_to_next_level():
+	print("teleport_to_next_level")
 	# Previne que a função rode mais de uma vez se ele esbarrar duas vezes na porta
 	if current_state == State.TELEPORTING: return 
 	
@@ -154,6 +160,7 @@ func teleport_to_next_level():
 	
 	# --- Lógica de achar o marcador ---
 	castle_level += 1
+	print("castle_level:",castle_level)
 	var castle_node = get_tree().current_scene.get_node_or_null("Castle")
 	if castle_node:
 		var marker_right_name = "level_right_" + str(castle_level)
@@ -181,12 +188,16 @@ func teleport_to_next_level():
 				
 func _on_attack_timer_timeout():
 	if current_state == State.ATTACK and current_target and is_instance_valid(current_target):
+		
+		# Tenta causar dano no Rei ou Herói
 		if current_target.has_method("take_damage"):
 			current_target.take_damage(damage)
-		else:
-			# Se o alvo não tem método take_damage, talvez seja a porta
-			# Porta deve ter vida e gerenciar isso
+			print("Inimigo atacou o alvo!")
+			
+		# Se não for Rei/Herói, tenta causar dano na Porta!
+		elif current_target.has_method("receive_damage"):
 			current_target.receive_damage(damage)
+			print("Inimigo atacou o PORTÃO!")
 
 func take_damage(amount: int):
 	if current_state == State.DEATH: return
@@ -195,6 +206,7 @@ func take_damage(amount: int):
 		die()
 
 func die():
+	print("Olá morri")
 	change_state(State.DEATH)
 	
 	# Para de atacar e se mover

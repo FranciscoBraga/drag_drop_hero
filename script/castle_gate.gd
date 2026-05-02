@@ -17,11 +17,12 @@ func _ready():
 
 func receive_damage(amount: int):
 	current_health -= amount
-	
+	print("atque ao port]ao:",current_health)
 	if current_health <= 0:
 		gate_break()
 
 func gate_break():
+	print("gate_break:",gate_break)
 	if is_broken: return
 	is_broken = true
 	

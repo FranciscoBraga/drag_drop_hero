@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://j1qnsfw7ikrv"]
+
+[ext_resource type="PackedScene" uid="uid://b04qwdk8k3sn3" path="res://scene/hero.tscn" id="1_ybxp4"]
+[ext_resource type="Texture2D" uid="uid://blrm1iou18l67" path="res://assets/personagens/hero/warrior/level_1/attack2.png" id="2_6m7n6"]
+[ext_resource type="Texture2D" uid="uid://1wrwmvx7hpmf" path="res://assets/personagens/hero/warrior/level_1/deth2.png" id="3_46wwx"]
+[ext_resource type="Texture2D" uid="uid://c5kwovuj8v5mt" path="res://assets/personagens/hero/warrior/level_1/defender2.png" id="4_wnf44"]
+[ext_resource type="Texture2D" uid="uid://d4gna1i325c4k" path="res://assets/personagens/hero/warrior/level_1/idle0.png" id="5_3pj7v"]
+[ext_resource type="Texture2D" uid="uid://dmoys8u66qn4l" path="res://assets/personagens/hero/warrior/level_1/victoria2.png" id="6_x4p81"]
+[ext_resource type="Texture2D" uid="uid://bpiq17pm26fyj" path="res://assets/personagens/hero/warrior/level_1/walk0.png" id="7_4277m"]
+[ext_resource type="Texture2D" uid="uid://diqexb5x217oj" path="res://assets/personagens/hero/warrior/level_1/walk1.png" id="8_svkl0"]
+[ext_resource type="Texture2D" uid="uid://b547gpaq5noub" path="res://assets/personagens/hero/warrior/level_1/walk2.png" id="9_5271m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jea7c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6m7n6")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_46wwx")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_wnf44")
+}],
+"loop": true,
+"name": &"defender",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_3pj7v")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_x4p81")
+}],
+"loop": true,
+"name": &"victoria",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_4277m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_svkl0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5271m")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="warrion1" instance=ExtResource("1_ybxp4")]
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_jea7c")
+animation = &"walk"

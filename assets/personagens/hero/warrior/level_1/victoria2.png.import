@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjyq72y4cayqq"
-path="res://.godot/imported/warrior.png-01b2ad1cb9a6301fce0c29e34ab68e0f.ctex"
+uid="uid://dmoys8u66qn4l"
+path="res://.godot/imported/victoria2.png-7da179110a8db676bc9d840873fe6cfe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/personagens/hero/warrior/warrior.png"
-dest_files=["res://.godot/imported/warrior.png-01b2ad1cb9a6301fce0c29e34ab68e0f.ctex"]
+source_file="res://assets/personagens/hero/warrior/level_1/victoria2.png"
+dest_files=["res://.godot/imported/victoria2.png-7da179110a8db676bc9d840873fe6cfe.ctex"]
 
 [params]
 

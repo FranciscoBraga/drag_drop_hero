@@ -55,8 +55,16 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("10_vcrrg")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_3f1er")
+}],
+"loop": true,
+"name": &"defender",
 "speed": 5.0
 }, {
 "frames": [{
@@ -72,6 +80,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("6_xewmk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3f1er")
+}],
+"loop": false,
+"name": &"victoria",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("13_hcs2o")
 }, {
 "duration": 1.0,
@@ -83,7 +102,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ipabr"]
-radius = 18.0
+radius = 42.0
 height = 126.0
 
 [node name="King" type="Area2D" groups=["king"]]
@@ -93,7 +112,7 @@ script = ExtResource("1_ewg6a")
 position = Vector2(-4, 6)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_qlv73")
-animation = &"walk"
+animation = &"defender"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

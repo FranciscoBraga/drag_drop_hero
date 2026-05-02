@@ -73,8 +73,8 @@ position = Vector2(1263, 648)
 [node name="HeroBox" type="TextureRect" parent="UI"]
 offset_left = -1.0
 offset_top = 1.0
-offset_right = 1023.0
-offset_bottom = 426.0
+offset_right = 144.0
+offset_bottom = 282.0
 mouse_filter = 2
 
 [node name="HeroSlot" parent="UI/HeroBox" instance=ExtResource("11_xx615")]

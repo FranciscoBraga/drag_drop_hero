@@ -3,39 +3,39 @@
 [ext_resource type="Script" path="res://script/enemy.gd" id="1_iqkys"]
 [ext_resource type="Texture2D" uid="uid://cah8ojugnh5ye" path="res://assets/personagens/eminis/globlins/globlin1/globlin1.png" id="2_vwnc6"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_budwc"]
-radius = 12.0
-height = 90.0
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_qy3af"]
 animations = [{
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"idle",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"victoria",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"walk",
 "speed": 5.0
 }]
 
-[node name="Enemy" type="Area2D" groups=["gate", "hero", "king"]]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_budwc"]
+radius = 23.0
+height = 90.0
+
+[node name="Enemy" type="Area2D" groups=["gate"]]
 z_index = 5
 script = ExtResource("1_iqkys")
 
@@ -43,12 +43,12 @@ script = ExtResource("1_iqkys")
 visible = false
 texture = ExtResource("2_vwnc6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_budwc")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, 1)
 sprite_frames = SubResource("SpriteFrames_qy3af")
 animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_budwc")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

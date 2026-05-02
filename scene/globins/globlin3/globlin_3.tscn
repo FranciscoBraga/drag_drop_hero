@@ -22,7 +22,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_p0xu8")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -61,6 +61,6 @@ damage = 15
 attack_range = 15.0
 attack_cooldown = 2.0
 
-[node name="AnimatedSprite2D" parent="." index="2"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_cmvfq")
-frame_progress = 0.613129
+animation = &"attack"

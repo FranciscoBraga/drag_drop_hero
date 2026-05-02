@@ -1,7 +1,8 @@
 extends Area2D
 
-enum State {IDLE, MOVE, ATTACK, DEATH}
+enum State {IDLE, MOVE, ATTACK, DEATH, VICTORY}
 var current_state = State.IDLE # Herói nasce parado defendendo
+# Adicione esta variável no topo do Main.gd
 
 @export var max_health: int = 50
 var current_health: int
@@ -76,6 +77,10 @@ func change_state(new_state):
 			if attack_timer.is_stopped():
 				attack_timer.start()
 		State.DEATH: animation_player.play("death")
+		State.VICTORY:
+			animation_player.play("victoria") # Coloque o nome exato da sua animação
+			if attack_timer: attack_timer.stop()
+			set_process(false)
 
 func _on_attack_timer_timeout():
 	if current_state == State.ATTACK and current_target and is_instance_valid(current_target):
@@ -96,3 +101,7 @@ func die():
 	# Espera animação de morte e some
 	await animation_player.animation_finished
 	queue_free()
+	
+func celebrate():
+	if current_state != State.DEATH:
+		change_state(State.VICTORY)

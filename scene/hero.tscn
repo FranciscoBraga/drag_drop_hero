@@ -1,38 +1,70 @@
-[gd_scene load_steps=4 format=3 uid="uid://b04qwdk8k3sn3"]
+[gd_scene load_steps=12 format=3 uid="uid://b04qwdk8k3sn3"]
 
 [ext_resource type="Script" path="res://script/hero.gd" id="1_kgf3l"]
+[ext_resource type="Texture2D" uid="uid://blrm1iou18l67" path="res://assets/personagens/hero/warrior/level_1/attack2.png" id="2_tvykd"]
+[ext_resource type="Texture2D" uid="uid://1wrwmvx7hpmf" path="res://assets/personagens/hero/warrior/level_1/deth2.png" id="3_jll80"]
+[ext_resource type="Texture2D" uid="uid://c5kwovuj8v5mt" path="res://assets/personagens/hero/warrior/level_1/defender2.png" id="4_psnwj"]
+[ext_resource type="Texture2D" uid="uid://d4gna1i325c4k" path="res://assets/personagens/hero/warrior/level_1/idle0.png" id="5_gllou"]
+[ext_resource type="Texture2D" uid="uid://dmoys8u66qn4l" path="res://assets/personagens/hero/warrior/level_1/victoria2.png" id="6_o31oh"]
+[ext_resource type="Texture2D" uid="uid://bpiq17pm26fyj" path="res://assets/personagens/hero/warrior/level_1/walk0.png" id="7_idpdp"]
+[ext_resource type="Texture2D" uid="uid://diqexb5x217oj" path="res://assets/personagens/hero/warrior/level_1/walk1.png" id="8_b6jmb"]
+[ext_resource type="Texture2D" uid="uid://b547gpaq5noub" path="res://assets/personagens/hero/warrior/level_1/walk2.png" id="9_wcxhv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5wha"]
 height = 68.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l768l"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tvykd")
+}],
 "loop": true,
 "name": &"attack",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jll80")
+}],
 "loop": true,
 "name": &"death",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_psnwj")
+}],
 "loop": true,
 "name": &"defender",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_gllou")
+}],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_o31oh")
+}],
 "loop": true,
 "name": &"victoria",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_idpdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b6jmb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wcxhv")
+}],
 "loop": true,
 "name": &"walk",
 "speed": 5.0
@@ -46,4 +78,4 @@ shape = SubResource("CapsuleShape2D_o5wha")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l768l")
-animation = &"defender"
+animation = &"attack"

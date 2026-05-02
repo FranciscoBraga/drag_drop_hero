@@ -9,6 +9,11 @@ var current_wave_index: int = 0
 var spawned_in_current_wave: int = 0
 var spawn_timer: Timer
 
+@export var linha_do_castelo_y: float = 400.0 # Ajuste este valor no Inspector depois!
+# Adicione esta variável no topo do Main.gd
+var todas_ondas_finalizadas: bool = false
+var jogo_acabou: bool = false # Evita que a vitória rode várias vezes
+
 func _ready():
 	var gate = get_tree().get_first_node_in_group("gate")
 	if gate:
@@ -26,6 +31,14 @@ func _ready():
 	
 	# Inicia a primeira onda
 	start_next_wave()
+	
+func _process(delta):
+	if todas_ondas_finalizadas and not jogo_acabou:
+		# Conta quantos inimigos existem no mapa
+		var inimigos_vivos = get_tree().get_nodes_in_group("enemy").size()
+		
+		if inimigos_vivos == 0:
+			declarar_vitoria()
 	
 func start_next_wave():
 	if current_wave_index < level_waves.size():
@@ -46,6 +59,7 @@ func _spawn_enemy():
 	# TRAVA DE SEGURANÇA: Se o índice for maior ou igual ao total de ondas, para o spawn e sai da função!
 	if current_wave_index >= level_waves.size():
 		spawn_timer.stop()
+		todas_ondas_finalizadas = true # Avisa que não vem mais ninguém!
 		return
 	var current_wave = level_waves[current_wave_index]
 	
@@ -91,17 +105,32 @@ func _input(event):
 			stop_dragging_hero()
 
 func stop_dragging_hero():
-	print("4. SOLTEI O HERÓI NO MAPA!") # Rastreio 4
 	is_dragging = false
 	
 	var new_hero = dragged_hero_packed.instantiate()
 	add_child(new_hero) 
 	new_hero.global_position = get_global_mouse_position()
 	
+	# --- LÓGICA DE PROFUNDIDADE (Z-INDEX) ---
+	# Se a posição Y do herói for menor (mais alto na tela) que a linha do castelo
+	if new_hero.global_position.y < linha_do_castelo_y:
+		new_hero.z_index = -1 # Fica atrás da muralha da frente (igual o Rei)
+	else:
+		new_hero.z_index = 5  # Fica na frente do chão e dos inimigos normais
+	
 	if current_drag_ghost:
 		current_drag_ghost.queue_free()
 	current_drag_ghost = null
 	dragged_hero_packed = null
-
 func _on_gate_broken():
 	print("O Main foi avisado que a porta quebrou!")
+	
+func declarar_vitoria():
+	jogo_acabou = true
+	print("Fase Concluída! Vitória do Jogador!")
+	
+	# Manda o Rei e todos os Heróis vivos comemorarem!
+	get_tree().call_group("king", "celebrate")
+	get_tree().call_group("hero", "celebrate")
+	
+	# Aqui você pode chamar um painel de "Próxima Fase" ou voltar pro menu

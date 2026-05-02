@@ -11,7 +11,7 @@ var current_health: int
 @export var damage: int = 20
 @export var attack_range: float = 50.0
 @export var attack_cooldown: float = 1.0
-@export var patrol_distance: float = 80.0 # Distância máxima que ele anda da posição inicial
+@export var patrol_distance: float = 100.0 # Distância máxima que ele anda da posição inicial
 
 var start_position: Vector2
 var patrol_target: Vector2

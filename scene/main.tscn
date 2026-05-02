@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bpe1cgqtyvu7o"]
+[gd_scene load_steps=17 format=3 uid="uid://bpe1cgqtyvu7o"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_83eh8"]
 [ext_resource type="PackedScene" uid="uid://36ota6shfk56" path="res://scene/castle.tscn" id="1_w75ya"]
@@ -31,17 +31,21 @@ enemy_scene = ExtResource("6_tll5a")
 enemy_count = 5
 spawn_interval = 6.0
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_0tipg"]
+
 [node name="Main" type="Node2D"]
 position = Vector2(3, 5)
 script = ExtResource("1_83eh8")
 level_waves = Array[ExtResource("3_elgx2")]([SubResource("Resource_1yv2o"), SubResource("Resource_0vgq4"), SubResource("Resource_nhtj5")])
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -3
 position = Vector2(597, 217)
 scale = Vector2(1.53906, 2.38588)
 texture = ExtResource("3_qgcli")
 
 [node name="cenario_solo" type="Sprite2D" parent="."]
+z_index = -2
 position = Vector2(620.5, 611.5)
 scale = Vector2(2.545, 1.58333)
 texture = ExtResource("2_vp3fu")
@@ -76,6 +80,7 @@ offset_top = 1.0
 offset_right = 144.0
 offset_bottom = 282.0
 mouse_filter = 2
+texture = SubResource("ViewportTexture_0tipg")
 
 [node name="HeroSlot" parent="UI/HeroBox" instance=ExtResource("11_xx615")]
 layout_mode = 0

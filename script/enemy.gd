@@ -126,20 +126,20 @@ func change_state(new_state):
 		
 # --- ATUALIZE SUA FUNÇÃO _on_area_entered ---
 func _on_area_entered(area: Area2D):
-	print("_on_area_entered")
-	# Lógica de dano original para rei e herói...
-	if area.is_in_group("king") or area.is_in_group("hero"):
-		if area.has_method("take_damage"):
-			print("inimigo sobre ataque")
-			area.take_damage(damage)
-			# queue_free() # ou lógica de combate
-			# NOVA LÓGICA: Se tocou na porta
-	if area.is_in_group("gate"):
-		print("gate")
-			# Verifica se a porta tem a variável is_broken e se ela é verdadeira
+	if area.is_in_group("hero"):
+		# Sequestra a atenção do inimigo para o herói!
+		current_target = area
+		change_state(State.ATTACK) # Para de andar e começa a bater
+		
+	elif area.is_in_group("gate"):
 		if area.get("is_broken") == true:
-			print("is_broken")
 			teleport_to_next_level()
+		
+	elif area.is_in_group("king"):
+		current_target = area
+		change_state(State.ATTACK)
+		
+
 
 # --- NOVA FUNÇÃO DE TELETRANSPORTE ---
 func teleport_to_next_level():

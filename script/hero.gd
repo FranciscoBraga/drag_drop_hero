@@ -7,7 +7,7 @@ var current_state = State.IDLE # Herói nasce parado defendendo
 @export var max_health: int = 50
 var current_health: int
 @export var damage: int = 15
-@export var attack_range: float = 30.0
+@export var attack_range: float = 120.0
 @export var attack_cooldown: float = 1.2
 @export var is_flying: bool = false # Se marcar como TRUE no Inspector, ele não cai
 var is_grounded: bool = false
@@ -17,6 +17,8 @@ var is_dead: bool = false # Variável para os inimigos saberem que ele morreu
 
 var attack_timer: Timer
 var current_target = null # Dinâmico: Inimigo mais próximo
+
+var current_attack_time: float = 0.0
 
 @onready var animation_player = $AnimatedSprite2D
 
@@ -47,15 +49,32 @@ func _process(delta):
 		find_closest_enemy()
 		
 	match current_state:
-		State.IDLE:
+		State.IDLE:	
+			if current_target and is_instance_valid(current_target):
+				print("global_position.distance_to(current_target.global_position) :",global_position.distance_to(current_target.global_position))
 			# Se encontrou inimigo, e está no alcance, ataca
-			if current_target and global_position.distance_to(current_target.global_position) <= attack_range:
-				change_state(State.ATTACK)
+				if current_target and global_position.distance_to(current_target.global_position) <= attack_range:
+					print("heroi ATTACK!")
+					change_state(State.ATTACK)
 		State.ATTACK:
-			# Lógica gerenciada pelo timer
-			if not current_target or not is_instance_valid(current_target):
-				attack_timer.stop()
-				change_state(State.IDLE)
+			print("heroi iniciou ATTACK!")
+			if not current_target or not is_instance_valid(current_target) or current_target.get("is_dead") == true:
+				change_state(State.IDLE) # Inimigo morreu, herói volta a descansar
+			else:
+				# Relógio de ataque do HERÓI
+				current_attack_time += delta
+				print("heroi aguardando ATTACar!")
+				print("heroi aguardando ATTACar! current_attack_time:",current_attack_time,attack_cooldown) 
+				if current_attack_time >= attack_cooldown:
+					print("heroi aguardando ATTACar! current_attack_time:",current_attack_time) 
+					current_attack_time = 0.0 # Reseta o tempo
+					
+					# Bate no inimigo!
+					if current_target.has_method("take_damage"):
+						print("Herói bateu no goblin!")
+						print("heroi ATTACk!")
+						current_target.take_damage(damage)
+
 		# Heróis no protótipo não andam, apenas lutam e morrem
 		State.MOVE: pass 
 		State.VICTORY:
@@ -65,6 +84,7 @@ func _process(delta):
 
 func find_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("enemy")
+	print("enemies:",enemies)
 	if enemies.size() == 0:
 		current_target = null
 		return

@@ -46,7 +46,7 @@ texture = ExtResource("2_vwnc6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, 1)
 sprite_frames = SubResource("SpriteFrames_qy3af")
-animation = &"walk"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_budwc")

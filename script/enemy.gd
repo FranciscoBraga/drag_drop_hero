@@ -21,8 +21,6 @@ var gate = null
 
 func _ready():
 	add_to_group("enemy")
-	print("castle_level:",castle_level)
-	
 	# Adiciona timer de ataque
 	attack_timer = Timer.new()
 	attack_timer.wait_time = attack_cooldown
@@ -47,6 +45,7 @@ func _process(delta):
 				
 				# 1. Calcula a direção SEMPRE (para o flip e para andar)
 				var direction = (current_target.global_position - global_position).normalized()
+				# TRAVA O EIXO Y PARA ELE NÃO VOAR!
 				
 				# 2. Vira o sprite para o lado certo IMEDIATAMENTE
 				if direction.x < 0:
@@ -89,11 +88,9 @@ func find_king_target():
 	var king = get_tree().get_first_node_in_group("king")
 	if king:
 		set_target(king)
-		print("king")
 	else:
 		# Rei já morreu, jogo acabou
 		change_state(State.IDLE)
-		print("IDLE")
 
 func set_target(target):
 	if target == null:
@@ -109,7 +106,6 @@ func change_state(new_state):
 	if current_state == new_state and animation_player.is_playing(): return
 	
 	current_state = new_state
-	print("current_state:",current_state)
 	match new_state:
 		State.IDLE: animation_player.play("idle")
 		State.MOVE: animation_player.play("walk")
@@ -118,6 +114,8 @@ func change_state(new_state):
 			# Inicia o timer de ataque se for a primeira vez
 			if attack_timer.is_stopped():
 				attack_timer.start()
+			if not current_target or not is_instance_valid(current_target) or current_target.get("is_dead") == true:
+				find_next_target() # Chama a nova função!
 		State.DEATH: animation_player.play("death")
 		State.TELEPORTING:
 			# Para tudo que estiver fazendo
@@ -147,7 +145,6 @@ func _on_area_entered(area: Area2D):
 
 # --- NOVA FUNÇÃO DE TELETRANSPORTE ---
 func teleport_to_next_level():
-	print("teleport_to_next_level")
 	# Previne que a função rode mais de uma vez se ele esbarrar duas vezes na porta
 	if current_state == State.TELEPORTING: return 
 	
@@ -164,7 +161,6 @@ func teleport_to_next_level():
 	
 	# --- Lógica de achar o marcador ---
 	castle_level += 1
-	print("castle_level:",castle_level)
 	var castle_node = get_tree().current_scene.get_node_or_null("Castle")
 	if castle_node:
 		var marker_right_name = "level_right_" + str(castle_level)
@@ -180,8 +176,6 @@ func teleport_to_next_level():
 		if possible_markers.size() > 0:
 			var chosen_marker = possible_markers.pick_random()
 			global_position = chosen_marker.global_position
-		else:
-			print("Erro: Nenhum marcador encontrado para o level ", castle_level)
 			
 	# --- A Mágica de Volta ---
 	visible = true # Fica visível novamente
@@ -196,30 +190,41 @@ func _on_attack_timer_timeout():
 		# Tenta causar dano no Rei ou Herói
 		if current_target.has_method("take_damage"):
 			current_target.take_damage(damage)
-			print("Inimigo atacou o alvo!")
 			
 		# Se não for Rei/Herói, tenta causar dano na Porta!
 		elif current_target.has_method("receive_damage"):
 			current_target.receive_damage(damage)
-			print("Inimigo atacou o PORTÃO!")
 
 func take_damage(amount: int):
 	if current_state == State.DEATH: return
 	hp -= amount
+
+	
+	# Inimigo também pisca vermelho ao apanhar
+	modulate = Color(1, 0, 0)
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color(1, 1, 1), 0.3)
+	
 	if hp <= 0:
 		die()
 
 func die():
-	print("Olá morri")
+	is_dead = true
 	change_state(State.DEATH)
+	set_process(false)
 	
-	# Para de atacar e se mover
-	set_process(false) # Desativa o process para parar o movimento
-	attack_timer.stop()
+	if attack_timer: attack_timer.stop()
 	
-	# Espera a animação de morte acabar
+	# Desativa colisão
+	$CollisionShape2D.set_deferred("disabled", true)
+	
+	# Fade out
+	modulate = Color(0.8, 0, 0)
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 1.0)
+	
 	await animation_player.animation_finished
-	queue_free() # Remove da cena
+	queue_free()
 # 3. Crie esta função no final do script
 func celebrate():
 	if current_state != State.DEATH: # Só comemora se estiver vivo!

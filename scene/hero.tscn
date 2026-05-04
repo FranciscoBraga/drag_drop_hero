@@ -68,12 +68,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5wha"]
-radius = 31.0
-height = 68.0
+radius = 30.0
+height = 74.0
 
 [node name="Hero" type="Area2D" groups=["hero"]]
 script = ExtResource("1_kgf3l")
-attack_cooldown = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -51)
